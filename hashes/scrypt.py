@@ -29,4 +29,33 @@ def hash_scrypt(password):
     hashed_password = hashlib.scrypt(
         password.encode(), salt=salt, n=N, r=r, p=p, dklen=64
     )
-    return hashed_password.hex(), "Scrypt"
+    new_hash = salt.hex() + hashed_password.hex()
+
+    return new_hash, "Scrypt"
+
+
+def verify_scrypt(password, hashed_password):
+    # Extract salt and hash from stored password
+    salt = bytes.fromhex(
+        hashed_password[:32],  # The first 32 characters are the salt
+    )
+
+    stored_hash = bytes.fromhex(
+        hashed_password[32:],  # The rest is the password hash
+    )
+
+    # Scrypt parameters (must match those used when hashing)
+    N = 16384
+    r = 8
+    p = 1
+
+    # Hash the entered password using the same salt and parameters
+    new_hash = hashlib.scrypt(
+        password.encode(),
+        salt=salt,
+        n=N,
+        r=r,
+        p=p,
+        dklen=64,
+    )
+    return new_hash == stored_hash

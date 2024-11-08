@@ -4,7 +4,7 @@ Main App
 
 from hashes.md5 import hash_md5
 from hashes.sha import hash_sha
-from hashes.scrypt import hash_scrypt
+from hashes.scrypt import hash_scrypt, verify_scrypt
 from hashes.bcrypt import hash_bcrypt
 
 
@@ -28,6 +28,8 @@ def main():
     display_hash(sha_hash_result, sha_hash_type)
     display_hash(scrypt_hash_result, scrypt_hash_type)
     display_hash(bcrypt_hash_result, bcrypt_hash_type)
+
+    print(verify_scrypt("jose", scrypt_hash_result))
 
 
 if __name__ == "__main__":
