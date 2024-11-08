@@ -23,3 +23,7 @@ def hash_bcrypt(password):
     hashed_password = bcrypt.hashpw(password.encode(), salt)
 
     return hashed_password.decode(), "bcrypt"
+
+
+def verify_bcrypt(password, stored_hash):
+    return bcrypt.checkpw(password.encode(), stored_hash.encode())

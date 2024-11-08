@@ -18,3 +18,7 @@ import hashlib
 def hash_md5(password):
     hashed_password = hashlib.md5(password.encode()).hexdigest()
     return hashed_password, "MD5"
+
+
+def verify_md5(password, stored_hash):
+    return hash_md5(password) == stored_hash

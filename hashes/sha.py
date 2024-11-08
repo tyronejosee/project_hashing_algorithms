@@ -18,3 +18,7 @@ import hashlib
 def hash_sha(password):
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
     return hashed_password, "SHA-256"
+
+
+def verify_sha(password, stored_hash):
+    return hash_sha(password) == stored_hash
